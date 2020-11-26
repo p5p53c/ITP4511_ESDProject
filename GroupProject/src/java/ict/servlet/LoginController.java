@@ -78,8 +78,7 @@ public class LoginController extends HttpServlet {
             if(isValid) {
                 HttpSession session = request.getSession(true);
                 StudentBean bean = new StudentBean();
-                bean.setStudID(username);
-                bean.setPwd(password);
+                bean = db.queryStudByID(username);
                 session.setAttribute("userInfo", bean);
                 targetURL = "/StudentMain.jsp";
             } else {
@@ -90,8 +89,7 @@ public class LoginController extends HttpServlet {
             if(isValid) {
                 HttpSession session = request.getSession(true);
                 TechnicianBean bean = new TechnicianBean();
-                bean.setTechID(username);
-                bean.setPwd(password);
+                bean = db.queryTechByID(username);
                 session.setAttribute("userInfo", bean);
                 targetURL = "/TechMain.jsp";
             } else {
@@ -102,8 +100,7 @@ public class LoginController extends HttpServlet {
             if(isValid) {
                 HttpSession session = request.getSession(true);
                 SeniorBean bean = new SeniorBean();
-                bean.setSeniorID(username);
-                bean.setPwd(password);
+                bean = db.querySeniorByID(username);
                 session.setAttribute("userInfo", bean);
                 targetURL = "/SeniorMain.jsp";
             } else {

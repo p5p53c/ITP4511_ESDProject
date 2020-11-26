@@ -9,9 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tech</title>
+        <title>Technician Main</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <jsp:useBean id="userInfo" class="ict.bean.TechnicianBean" scope="session" />
+        <h1>Hello, <jsp:getProperty name="userInfo" property="name" /></h1>
+        <p>Welcome to the IVPET Borrowing System</p>
+        <ul>
+            <ol>Inventory management</ol>
+            <ol>Handle check-in/out of equipment</ol>
+            <ol>Lookup overdue items</ol>
+        </ul>
+        <form method="post" action="main">
+            <input type="hidden" name="action" value="logout">
+            <input type="submit" value="Logout" name="logoutButton">
+        </form>
     </body>
 </html>

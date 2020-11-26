@@ -159,9 +159,9 @@ public class ESDDB {
             if (rs.next()) {
                 // set the record detail to the customer bean
                 sb = new StudentBean();
-                sb.setStudID(rs.getInt(1));
-                sb.setName(rs.getString(2));
-                sb.setPwd(rs.getString(3));
+                sb.setStudID(rs.getInt("studentID"));
+                sb.setName(rs.getString("name"));
+                sb.setPwd(rs.getString("password"));
             }
             pStmnt.close();
             cnnct.close();
@@ -195,9 +195,9 @@ public class ESDDB {
             if (rs.next()) {
                 // set the record detail to the customer bean
                 tb = new TechnicianBean();
-                tb.setTechID(rs.getInt(1));
-                tb.setName(rs.getString(2));
-                tb.setPwd(rs.getString(3));
+                tb.setTechID(rs.getInt("techID"));
+                tb.setName(rs.getString("name"));
+                tb.setPwd(rs.getString("password"));
             }
             pStmnt.close();
             cnnct.close();
@@ -231,9 +231,9 @@ public class ESDDB {
             if (rs.next()) {
                 // set the record detail to the customer bean
                 sb = new SeniorBean();
-                sb.setSeniorID(rs.getInt(1));
-                sb.setName(rs.getString(2));
-                sb.setPwd(rs.getString(3));
+                sb.setSeniorID(rs.getInt("seniorID"));
+                sb.setName(rs.getString("name"));
+                sb.setPwd(rs.getString("password"));
             }
             pStmnt.close();
             cnnct.close();
@@ -267,10 +267,11 @@ public class ESDDB {
             if (rs.next()) {
                 // set the record detail to the customer bean
                 eb = new EquipmentBean();
-                eb.setEquipmentID(rs.getInt(1));
-                eb.setName(rs.getString(2));
-                eb.setQty(rs.getInt(3));
-                eb.setStatus(rs.getString(4));
+                eb.setEquipmentID(rs.getInt("equipmentID"));
+                eb.setName(rs.getString("name"));
+                eb.setQty(rs.getInt("qty"));
+                eb.setAvaqty(rs.getInt("availableqty"));
+                eb.setStatus(rs.getString("status"));
             }
             pStmnt.close();
             cnnct.close();
@@ -290,8 +291,9 @@ public class ESDDB {
         PreparedStatement pStmnt = null;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  equipment";
+            String preQueryStatement = "SELECT * FROM  equipment WHERE status=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, "A");
             //Statement s = cnnct.createStatement();
             ResultSet rs = pStmnt.executeQuery();
 
@@ -299,10 +301,11 @@ public class ESDDB {
 
             while (rs.next()) {
                 EquipmentBean eb = new EquipmentBean();
-                eb.setEquipmentID(rs.getInt(1));
-                eb.setName(rs.getString(2));
-                eb.setQty(rs.getInt(3));
-                eb.setStatus(rs.getString(4));
+                eb.setEquipmentID(rs.getInt("equipmentID"));
+                eb.setName(rs.getString("name"));
+                eb.setQty(rs.getInt("qty"));
+                eb.setAvaqty(rs.getInt("availableqty"));
+                eb.setStatus(rs.getString("status"));
                 list.add(eb);
             }
             return list;
@@ -344,9 +347,9 @@ public class ESDDB {
 
             while (rs.next()) {
                 StudentBean sb = new StudentBean();
-                sb.setStudID(rs.getInt(1));
-                sb.setName(rs.getString(2));
-                sb.setPwd(rs.getString(3));
+                sb.setStudID(rs.getInt("studentID"));
+                sb.setName(rs.getString("name"));
+                sb.setPwd(rs.getString("password"));
                 list.add(sb);
             }
             return list;

@@ -5,11 +5,13 @@
  */
 package ict.bean;
 
+import java.io.Serializable;
+
 /**
  *
  * @author p5p53
  */
-public class SeniorBean {
+public class SeniorBean implements Serializable{
     
     private int seniorID;
     private String name;

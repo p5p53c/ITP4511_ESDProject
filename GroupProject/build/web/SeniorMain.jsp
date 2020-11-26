@@ -9,9 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Senior</title>
+        <title>Senior Technician Main</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <jsp:useBean id="userInfo" class="ict.bean.SeniorBean" scope="session" />
+        <h1>Hello, <jsp:getProperty name="userInfo" property="name" /></h1>
+        <p>Welcome to the IVPET Borrowing System</p>
+        <ul>
+            <ol>Check the analytic & report</ol>
+            <ol>Account management</ol>
+        </ul>
+        <form method="post" action="main">
+            <input type="hidden" name="action" value="logout">
+            <input type="submit" value="Logout" name="logoutButton">
+        </form>
     </body>
 </html>

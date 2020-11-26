@@ -14,6 +14,7 @@ public class EquipmentBean {
     private int equipmentID;
     private String name;
     private int qty;
+    private int avaqty; //availableqty
     private String status;
 
     public EquipmentBean() {
@@ -41,6 +42,14 @@ public class EquipmentBean {
 
     public void setQty(int qty) {
         this.qty = qty;
+    }
+
+    public int getAvaqty() {
+        return avaqty;
+    }
+
+    public void setAvaqty(int avaqty) {
+        this.avaqty = avaqty;
     }
 
     public String getStatus() {
