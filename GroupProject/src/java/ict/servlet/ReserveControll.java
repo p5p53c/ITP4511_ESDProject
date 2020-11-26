@@ -50,6 +50,8 @@ public class ReserveControll extends HttpServlet {
             request.setAttribute("equipment", equipment);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Reservation.jsp");
             rd.forward(request, response);
+        } else if ("reserve".equalsIgnoreCase(action)) {
+            
         }
     }
 

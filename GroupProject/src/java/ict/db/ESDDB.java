@@ -294,7 +294,6 @@ public class ESDDB {
             String preQueryStatement = "SELECT * FROM  equipment WHERE status=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, "A");
-            //Statement s = cnnct.createStatement();
             ResultSet rs = pStmnt.executeQuery();
 
             ArrayList list = new ArrayList();
