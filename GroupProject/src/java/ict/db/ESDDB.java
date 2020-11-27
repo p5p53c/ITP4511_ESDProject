@@ -64,7 +64,7 @@ public class ESDDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO equipment (name, qty, status)VALUES (?,?,?)";
+            String preQueryStatement = "INSERT INTO equipment (equipname, qty, equipstatus)VALUES (?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, name);
             pStmnt.setInt(2, qty);
@@ -148,7 +148,7 @@ public class ESDDB {
         try {
             //1.  get Connection
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  student WHERE studentID=?";
+            String preQueryStatement = "SELECT * FROM student WHERE studentID=?";
             //2.  get the prepare Statement
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //3. update the placehoder with id
@@ -184,7 +184,7 @@ public class ESDDB {
         try {
             //1.  get Connection
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  technician WHERE techID=?";
+            String preQueryStatement = "SELECT * FROM technician WHERE techID=?";
             //2.  get the prepare Statement
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //3. update the placehoder with id
@@ -220,7 +220,7 @@ public class ESDDB {
         try {
             //1.  get Connection
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  senior WHERE seniorID=?";
+            String preQueryStatement = "SELECT * FROM senior WHERE seniorID=?";
             //2.  get the prepare Statement
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //3. update the placehoder with id
@@ -256,7 +256,7 @@ public class ESDDB {
         try {
             //1.  get Connection
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  equipment WHERE equipmentID=?";
+            String preQueryStatement = "SELECT * FROM equipment WHERE equipmentID=?";
             //2.  get the prepare Statement
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //3. update the placehoder with id
@@ -268,10 +268,10 @@ public class ESDDB {
                 // set the record detail to the customer bean
                 eb = new EquipmentBean();
                 eb.setEquipmentID(rs.getInt("equipmentID"));
-                eb.setName(rs.getString("name"));
+                eb.setName(rs.getString("equipname"));
                 eb.setQty(rs.getInt("qty"));
                 eb.setAvaqty(rs.getInt("availableqty"));
-                eb.setStatus(rs.getString("status"));
+                eb.setStatus(rs.getString("equipstatus"));
             }
             pStmnt.close();
             cnnct.close();
@@ -291,7 +291,7 @@ public class ESDDB {
         PreparedStatement pStmnt = null;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  equipment WHERE status=?";
+            String preQueryStatement = "SELECT * FROM equipment WHERE equipstatus=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, "A");
             ResultSet rs = pStmnt.executeQuery();
@@ -301,10 +301,10 @@ public class ESDDB {
             while (rs.next()) {
                 EquipmentBean eb = new EquipmentBean();
                 eb.setEquipmentID(rs.getInt("equipmentID"));
-                eb.setName(rs.getString("name"));
+                eb.setName(rs.getString("equipname"));
                 eb.setQty(rs.getInt("qty"));
                 eb.setAvaqty(rs.getInt("availableqty"));
-                eb.setStatus(rs.getString("status"));
+                eb.setStatus(rs.getString("equipstatus"));
                 list.add(eb);
             }
             return list;
@@ -469,7 +469,7 @@ public class ESDDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO borrow (equipmentID, studentID, status) VALUES (?,?,?)";
+            String preQueryStatement = "INSERT INTO borrow (equipmentID, studentID, borrowstatus) VALUES (?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1, equipID);
             pStmnt.setInt(2, studID);

@@ -29,10 +29,10 @@ CREATE TABLE `senior` (
 DROP TABLE IF EXISTS `equipment`;
 CREATE TABLE `equipment` (
     `equipmentID`   int(10)     NOT NULL    AUTO_INCREMENT,
-    `name`          VARCHAR(20) NOT NULL,
+    `equipname`          VARCHAR(20) NOT NULL,
     `qty`           int(3)      NOT NULL,
 	`availableqty`	int(3)		NOT NULL,
-    `status`        VARCHAR(10) NOT NULL,
+    `equipstatus`        VARCHAR(10) NOT NULL,
     CONSTRAINT `equipment_pk` PRIMARY KEY(`equipmentID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -41,7 +41,7 @@ CREATE TABLE `borrow` (
     `borrowID`      	int(10)     NOT NULL    AUTO_INCREMENT,
     `equipmentID`   	int(10)     NOT NULL,
     `studentID`     	int(10)     NOT NULL,
-    `status`        	VARCHAR(10) NOT NULL,
+    `borrowstatus`        	VARCHAR(10) NOT NULL,
     `applicationTime`   DATE    	DEFAULT     CURRENT_TIMESTAMP,
 	`borrowTime`		DATE		NULL,
 	`returnTime`		DATE		NULL,
@@ -71,9 +71,9 @@ SET @seniorID = last_insert_id();
 /*CREATE EQUIPMENT*/
 INSERT INTO `equipment` VALUES(3000000, "BasketBall", 100, 100, "A");
 SET @equipmentID = last_insert_id();
-INSERT INTO `equipment` (`name`, `qty` , `availableqty`, `status`)VALUES ("Football", 100, 100, "A");
-INSERT INTO `equipment` (`name`, `qty` , `availableqty`, `status`)VALUES ("Badminton", 100, 100, "N");
-INSERT INTO `equipment` (`name`, `qty` , `availableqty`, `status`)VALUES ("Chess", 100, 0, "A");
+INSERT INTO `equipment` (`equipname`, `qty` , `availableqty`, `equipstatus`)VALUES ("Football", 100, 100, "A");
+INSERT INTO `equipment` (`equipname`, `qty` , `availableqty`, `equipstatus`)VALUES ("Badminton", 100, 100, "N");
+INSERT INTO `equipment` (`equipname`, `qty` , `availableqty`, `equipstatus`)VALUES ("Chess", 100, 0, "A");
 
 /*CREATE BORRWO*/
 INSERT INTO `borrow` VALUES (4000000, 3000000, 1000000, "A", "2020-11-27", "2020-11-27", "2020-11-27", "2020-11-27", 2000000);

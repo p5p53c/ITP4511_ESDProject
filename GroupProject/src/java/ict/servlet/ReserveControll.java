@@ -5,7 +5,7 @@
  */
 package ict.servlet;
 
-import ict.bean.StudentBean;
+import ict.bean.*;
 import ict.db.ESDDB;
 import java.io.IOException;
 import java.io.PrintWriter;
