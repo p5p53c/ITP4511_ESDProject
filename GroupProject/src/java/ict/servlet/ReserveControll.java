@@ -59,7 +59,10 @@ public class ReserveControll extends HttpServlet {
             int studID = stud.getStudID();
             boolean isVaild = db.addBorrowrecord(equipID, studID);
             if (isVaild) {
-                
+                int borrowID = db.getBorrowID(studID);
+                PrintWriter out = response.getWriter();
+                out.write("<html><body>");
+                out.write("Your reserv number is " + borrowID);
             }
         }
     }

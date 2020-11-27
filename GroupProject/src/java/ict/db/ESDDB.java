@@ -499,7 +499,7 @@ public class ESDDB {
         try {
             //1.  get Connection
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  equipment WHERE equipmentID=?";
+            String preQueryStatement = "SELECT * FROM  borrow WHERE studentID=?";
             //2.  get the prepare Statement
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //3. update the placehoder with id
@@ -507,7 +507,7 @@ public class ESDDB {
             ResultSet rs = null;
             //4. execute the query and assign to the result 
             rs = pStmnt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 // set the record detail to the customer bean
                 BorrowID = rs.getInt("borrowID");
             }
