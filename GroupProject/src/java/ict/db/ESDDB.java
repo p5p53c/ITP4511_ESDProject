@@ -64,11 +64,12 @@ public class ESDDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO equipment (equipname, qty, equipstatus)VALUES (?,?,?)";
+            String preQueryStatement = "INSERT INTO equipment (equipname, qty , availableqty, equipstatus)VALUES (?,?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, name);
             pStmnt.setInt(2, qty);
-            pStmnt.setString(3, status);
+            pStmnt.setInt(3, qty);
+            pStmnt.setString(4, status);
             int rowCount = pStmnt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;
@@ -524,6 +525,13 @@ public class ESDDB {
             if (rowCount >= 1) {
                 isSuccess = true;
             }
+            preQueryStatement = "UPDATE equipment SET availableqty = availableqty - 1 WHERE equipmentID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, equipID);
+            rowCount = pStmnt.executeUpdate();
+            if (rowCount >= 1) {
+                isSuccess = true;
+            }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
@@ -618,5 +626,78 @@ public class ESDDB {
             }
         }
         return null;
+    }
+    
+    public int editEquip(EquipmentBean eb) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE equipment SET equipname=? ,qty=? ,equipstatus=? WHERE equipmentID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, eb.getName());
+            pStmnt.setInt(2, eb.getQty());
+            pStmnt.setString(3, eb.getStatus());
+            pStmnt.setInt(4, eb.getEquipmentID());
+            //Statement s = cnnct.createStatement();
+            int rs = pStmnt.executeUpdate();
+            return rs;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return 0;
+    }
+    
+    public int delEquip(int id) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE equipment SET equipstatus=? WHERE equipmentID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, "D");
+            pStmnt.setInt(2, id);
+            int rs = pStmnt.executeUpdate();
+            return rs;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return 0;
     }
 }

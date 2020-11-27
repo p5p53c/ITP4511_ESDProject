@@ -5,6 +5,7 @@
  */
 package ict.servlet;
 
+import ict.bean.EquipmentBean;
 import ict.db.ESDDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,6 +56,14 @@ public class ListController extends HttpServlet {
             request.setAttribute("equipment", equipment);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/EquipManage.jsp");
             rd.forward(request, response);
+        } else if ("editEquip".equalsIgnoreCase(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            if (id != 0) {
+                EquipmentBean equipement = db.queryEquipmentByID(id);
+                request.setAttribute("e", equipement);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/EquipEdit.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 }
