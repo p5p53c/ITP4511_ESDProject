@@ -64,6 +64,14 @@ public class ReserveControll extends HttpServlet {
                 out.write("<html><body>");
                 out.write("Your reserv number is " + borrowID);
             }
+        } else if ("reserverecord".equalsIgnoreCase(action)) {
+            HttpSession session = request.getSession(false);
+            StudentBean stud = (StudentBean) session.getAttribute("userInfo");
+            int studID = stud.getStudID();
+            ArrayList reserverecord = db.queryStudRecord(studID);
+            request.setAttribute("reserverecord", reserverecord);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/reserverecord.jsp");
+            rd.forward(request, response);
         }
     }
 

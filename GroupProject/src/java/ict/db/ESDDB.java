@@ -524,4 +524,53 @@ public class ESDDB {
         return BorrowID;
     }
     
+    public ArrayList queryStudRecord(int studID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT *\n" +
+                                        "FROM equipment, borrow\n" +
+                                        "WHERE equipment.equipmentID = borrow.equipmentID AND borrow.studentID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, studID);
+            //Statement s = cnnct.createStatement();
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList list = new ArrayList();
+
+            while (rs.next()) {
+                ReserveRecordBean rrb = new ReserveRecordBean();
+                rrb.setEquipname(rs.getString("equipname"));
+                rrb.setBorrowstatus(rs.getString("borrowstatus"));
+                rrb.setApplication(rs.getString("applicationTime"));
+                rrb.setBorrow(rs.getString("borrowTime"));
+                rrb.setReturnTime(rs.getString("returnTime"));
+                rrb.setActual(rs.getString("actualreturnTime"));
+                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
 }
