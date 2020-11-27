@@ -17,7 +17,7 @@
         <p>Welcome to the IVPET Borrowing System</p>
         <ul>
             <ol><a href="ReserveControll?action=list">Equipment reservation</a></ol>
-            <ol>Check personal borrowing records</ol>
+            <ol><a href="ReserveControll?action=liststudrecord">Check personal borrowing records</a></ol>
         </ul>
         <form method="post" action="main">
             <input type="hidden" name="action" value="logout">

@@ -32,5 +32,6 @@
                     }
                 %>
         </table>
+        <a href="/GroupProject/StudentMain.jsp">Back</a>
     </body>
 </html>

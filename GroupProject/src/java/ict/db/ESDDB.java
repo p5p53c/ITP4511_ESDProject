@@ -469,7 +469,7 @@ public class ESDDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO borrow (equipmentID, studentID, status) VALUES (?,?,?)";
+            String preQueryStatement = "INSERT INTO borrow (equipmentID, studentID, borrowstatus) VALUES (?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1, equipID);
             pStmnt.setInt(2, studID);
@@ -522,6 +522,53 @@ public class ESDDB {
             ex.printStackTrace();
         }
         return BorrowID;
+    }
+    
+    public ArrayList<ReserveRecordBean> getStudRecord(int studID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM borrow, equipment WHERE equipment.equipmentID = borrow.equipmentID AND borrow.studentID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, studID);
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList<ReserveRecordBean> list = new ArrayList<ReserveRecordBean>();
+
+            while (rs.next()) {
+                list.add(new ReserveRecordBean(rs.getString("name"), rs.getString("borrowstatus"), rs.getString("applicationTime"), rs.getString("borrowTime"), rs.getString("returnTime"), rs.getString("actualreturnTime")));
+//                rrb.setEquipName(rs.getString("name"));
+//                rrb.setStatus(rs.getString("borrowstatus"));
+//                rrb.setApplication(rs.getString("applicationTime"));
+//                rrb.setBorrow(rs.getString("borrowTime"));
+//                rrb.setReturntime(rs.getString("returnTime"));
+//                rrb.setActual(rs.getString("actualreturnTime"));
+//                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
     }
     
 }
