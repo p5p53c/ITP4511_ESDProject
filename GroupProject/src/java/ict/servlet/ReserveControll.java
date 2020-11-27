@@ -5,6 +5,7 @@
  */
 package ict.servlet;
 
+import ict.bean.StudentBean;
 import ict.db.ESDDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -51,7 +53,14 @@ public class ReserveControll extends HttpServlet {
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Reservation.jsp");
             rd.forward(request, response);
         } else if ("reserve".equalsIgnoreCase(action)) {
-            
+            int equipID = Integer.parseInt(request.getParameter("id"));
+            HttpSession session = request.getSession(false);
+            StudentBean stud = (StudentBean) session.getAttribute("userInfo");
+            int studID = stud.getStudID();
+            boolean isVaild = db.addBorrowrecord(equipID, studID);
+            if (isVaild) {
+                
+            }
         }
     }
 

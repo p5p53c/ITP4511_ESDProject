@@ -15,7 +15,7 @@
     <body>
         <jsp:useBean id="userInfo" class="ict.bean.StudentBean" scope="session" />
         <jsp:useBean id="equipment" class="java.util.ArrayList<ict.bean.EquipmentBean>" scope="request" />
-        <input type="hidden" name="id" value="<jsp:getProperty name="userInfo" property="studID" />">
+        <input type="hidden" name="studid" value="<jsp:getProperty name="userInfo" property="studID" />">
         <table border = "1">
             <tr>
                 <th>Equipment Name</th>

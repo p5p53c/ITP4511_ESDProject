@@ -462,4 +462,66 @@ public class ESDDB {
         }
         return isValid;
     }
+    
+    public boolean addBorrowrecord(int equipID, int studID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "INSERT INTO borrow (equipmentID, studentID, status) VALUES (?,?,?)";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, equipID);
+            pStmnt.setInt(2, studID);
+            pStmnt.setString(3, "W");
+            int rowCount = pStmnt.executeUpdate();
+            if (rowCount >= 1) {
+                isSuccess = true;
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+    
+    public int getBorrowID(int studID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        int BorrowID = 0;
+        try {
+            //1.  get Connection
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM  equipment WHERE equipmentID=?";
+            //2.  get the prepare Statement
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            //3. update the placehoder with id
+            pStmnt.setInt(1, studID);
+            ResultSet rs = null;
+            //4. execute the query and assign to the result 
+            rs = pStmnt.executeQuery();
+            if (rs.next()) {
+                // set the record detail to the customer bean
+                BorrowID = rs.getInt("borrowID");
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return BorrowID;
+    }
+    
 }
