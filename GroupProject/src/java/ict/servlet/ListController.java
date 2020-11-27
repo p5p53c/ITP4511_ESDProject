@@ -5,7 +5,6 @@
  */
 package ict.servlet;
 
-import ict.bean.*;
 import ict.db.ESDDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,24 +15,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author p5p53
  */
-@WebServlet(name = "ReserveControll", urlPatterns = {"/ReserveControll"})
-public class ReserveControll extends HttpServlet {
-
-    private ESDDB db;
+@WebServlet(name = "ListController", urlPatterns = {"/ListController"})
+public class ListController extends HttpServlet {
     
+    private ESDDB db;
+
     public void init() throws ServletException {
         String dbUser = this.getServletContext().getInitParameter("dbUser");
         String dbPassword = this.getServletContext().getInitParameter("dbPassword");
         String dbUrl = this.getServletContext().getInitParameter("dbUrl");
         db = new ESDDB (dbUrl, dbUser, dbPassword);
     }
-
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -47,28 +45,16 @@ public class ReserveControll extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         
-        if ("reserve".equalsIgnoreCase(action)) {
-            int equipID = Integer.parseInt(request.getParameter("id"));
-            HttpSession session = request.getSession(false);
-            StudentBean stud = (StudentBean) session.getAttribute("userInfo");
-            int studID = stud.getStudID();
-            boolean isVaild = db.addBorrowrecord(equipID, studID);
-            if (isVaild) {
-                int borrowID = db.getBorrowID(studID);
-                PrintWriter out = response.getWriter();
-                out.write("<html><body>");
-                out.write("Your reserv number is " + borrowID);
-                out.write("<br><a href=\"StudentMain.jsp\">Back</a>");
-            }
-        } else if ("reserverecord".equalsIgnoreCase(action)) {
-            HttpSession session = request.getSession(false);
-            StudentBean stud = (StudentBean) session.getAttribute("userInfo");
-            int studID = stud.getStudID();
-            ArrayList reserverecord = db.queryStudRecord(studID);
-            request.setAttribute("reserverecord", reserverecord);
-            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/reserverecord.jsp");
+        if ("studlist".equalsIgnoreCase(action)) {
+            ArrayList equipment = db.querystudEquipment();
+            request.setAttribute("equipment", equipment);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Reservation.jsp");
+            rd.forward(request, response);
+        } else if ("techlist".equalsIgnoreCase(action)) {
+            ArrayList equipment = db.queryTechEquipment();
+            request.setAttribute("equipment", equipment);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/EquipManage.jsp");
             rd.forward(request, response);
         }
     }
-
 }

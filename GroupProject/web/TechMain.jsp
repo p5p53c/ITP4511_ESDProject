@@ -16,7 +16,7 @@
         <h1>Hello, <jsp:getProperty name="userInfo" property="name" /></h1>
         <p>Welcome to the IVPET Borrowing System</p>
         <ul>
-            <ol>Inventory management</ol>
+            <ol><a href="ListController?action=techlist">Inventory management</a></ol>
             <ol>Handle check-in/out of equipment</ol>
             <ol>Lookup overdue items</ol>
         </ul>

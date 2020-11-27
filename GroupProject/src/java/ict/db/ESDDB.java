@@ -286,7 +286,7 @@ public class ESDDB {
         return eb;
     }
     
-    public ArrayList queryEquipment() {
+    public ArrayList querystudEquipment() {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         try {
@@ -294,6 +294,52 @@ public class ESDDB {
             String preQueryStatement = "SELECT * FROM equipment WHERE equipstatus=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, "A");
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList list = new ArrayList();
+
+            while (rs.next()) {
+                EquipmentBean eb = new EquipmentBean();
+                eb.setEquipmentID(rs.getInt("equipmentID"));
+                eb.setName(rs.getString("equipname"));
+                eb.setQty(rs.getInt("qty"));
+                eb.setAvaqty(rs.getInt("availableqty"));
+                eb.setStatus(rs.getString("equipstatus"));
+                list.add(eb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList queryTechEquipment() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM equipment WHERE equipstatus<>?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, "D");
             ResultSet rs = pStmnt.executeQuery();
 
             ArrayList list = new ArrayList();

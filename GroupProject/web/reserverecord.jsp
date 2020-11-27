@@ -26,9 +26,18 @@
             <%
                 for (int i = 0; i < reserverecord.size(); i++) {
                     ReserveRecordBean rr = reserverecord.get(i);
+                    
+                    if (rr.getBorrowstatus().equals("A"))
+                        rr.setBorrowstatus("Accept");
+                    else if (rr.getBorrowstatus().equals("W"))
+                        rr.setBorrowstatus("Waiting for acceptance");
+                    else if (rr.getBorrowstatus().equals("R"))
+                        rr.setBorrowstatus("Reject");
+                    
                     out.println("<tr><td>" + rr.getEquipname() + "</td><td>" + rr.getBorrowstatus() + "</td><td>" + rr.getApplication() + "</td><td>" + rr.getBorrow() + "</td><td>" + rr.getReturnTime() + "</td><td>" + rr.getActual() + "</td></tr>");
                 }
             %>
         </table>
+        <a href="StudentMain.jsp">Back</a>
     </body>
 </html>
