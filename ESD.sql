@@ -41,7 +41,7 @@ CREATE TABLE `borrow` (
     `borrowID`      	int(10)     NOT NULL    AUTO_INCREMENT,
     `equipmentID`   	int(10)     NOT NULL,
     `studentID`     	int(10)     NOT NULL,
-    `borrowstatus`        	VARCHAR(10) NOT NULL,
+    `borrowstatus`      VARCHAR(10) NOT NULL,
     `applicationTime`   DATE    	DEFAULT     CURRENT_TIMESTAMP,
 	`borrowTime`		DATE		NULL,
 	`returnTime`		DATE		NULL,
