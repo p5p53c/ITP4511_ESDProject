@@ -5,7 +5,6 @@
  */
 package ict.servlet;
 
-import ict.bean.ReserveRecordBean;
 import ict.bean.StudentBean;
 import ict.db.ESDDB;
 import java.io.IOException;
@@ -60,17 +59,12 @@ public class ReserveControll extends HttpServlet {
             int studID = stud.getStudID();
             boolean isVaild = db.addBorrowrecord(equipID, studID);
             if (isVaild) {
-<<<<<<< HEAD
                 int borrowID = db.getBorrowID(studID);
                 PrintWriter out = response.getWriter();
                 out.write("<html><body>");
                 out.write("Your reserv number is " + borrowID);
-                out.write("<br><a href = \"/GroupProject/StudentMain.jsp\">Back</a>");
-=======
-                
->>>>>>> parent of 707538e... Borrow function complete
             }
-        } 
+        }
     }
 
 }
