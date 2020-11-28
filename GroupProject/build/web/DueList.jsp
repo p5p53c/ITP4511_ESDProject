@@ -34,5 +34,6 @@
                 }
             %>
         </table>
+        <a href="TechMain.jsp">Back</a>
     </body>
 </html>
