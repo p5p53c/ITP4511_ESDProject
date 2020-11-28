@@ -12,10 +12,34 @@ package ict.bean;
 public class ReserveRecordBean {
     
     private int borrowID;
-    private String equipname, borrowstatus, name;
+    private String equipname, borrowstatus, studname, techname, seniorname;
     private String application, borrow, returnTime, actual;
 
     public ReserveRecordBean() {
+    }
+
+    public String getStudname() {
+        return studname;
+    }
+
+    public void setStudname(String studname) {
+        this.studname = studname;
+    }
+
+    public String getTechname() {
+        return techname;
+    }
+
+    public void setTechname(String techname) {
+        this.techname = techname;
+    }
+
+    public String getSeniorname() {
+        return seniorname;
+    }
+
+    public void setSeniorname(String seniorname) {
+        this.seniorname = seniorname;
     }
 
     public int getBorrowID() {
@@ -24,14 +48,6 @@ public class ReserveRecordBean {
 
     public void setBorrowID(int borrowID) {
         this.borrowID = borrowID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEquipname() {

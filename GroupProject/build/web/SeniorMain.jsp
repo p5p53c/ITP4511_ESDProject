@@ -16,7 +16,7 @@
         <h1>Hello, <jsp:getProperty name="userInfo" property="name" /></h1>
         <p>Welcome to the IVPET Borrowing System</p>
         <ul>
-            <ol>Check the analytic & report</ol>
+            <ol><a href="ListController?action=techborrowlist">Borrowing Record</a></ol>
             <ol>Account management</ol>
         </ul>
         <form method="post" action="main">

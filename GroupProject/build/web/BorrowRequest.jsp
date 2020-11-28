@@ -28,7 +28,7 @@
                     out.print("<tr>");
                     out.print("<td>" + rr.getEquipname() + "</td>");
                     out.print("<td>" + rr.getApplication() + "</td>");
-                    out.print("<td>" + rr.getName() + "</td>");
+                    out.print("<td>" + rr.getStudname()+ "</td>");
                     out.print("<td><a href=\"ReserveControll?action=A&id=" + rr.getBorrowID() + "\"> Accept</a> |");
                     out.print("<a href=\"ReserveControll?action=R&id=" + rr.getBorrowID() + "\"> Reject </td>");
                     out.println("</tr>");

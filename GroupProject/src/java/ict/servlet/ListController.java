@@ -74,6 +74,11 @@ public class ListController extends HttpServlet {
             request.setAttribute("reserverecord", reserverecord);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/DueList.jsp");
             rd.forward(request, response);
+        } else if ("techborrowlist".equalsIgnoreCase(action)) {
+            ArrayList reserverecord = db.queryborrow();
+            request.setAttribute("reserverecord", reserverecord);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/BorrowRecord.jsp");
+            rd.forward(request, response);
         }
     }
 }

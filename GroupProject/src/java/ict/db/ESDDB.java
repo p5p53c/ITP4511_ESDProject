@@ -161,7 +161,7 @@ public class ESDDB {
                 // set the record detail to the customer bean
                 sb = new StudentBean();
                 sb.setStudID(rs.getInt("studentID"));
-                sb.setName(rs.getString("name"));
+                sb.setName(rs.getString("studname"));
                 sb.setPwd(rs.getString("password"));
             }
             pStmnt.close();
@@ -197,7 +197,7 @@ public class ESDDB {
                 // set the record detail to the customer bean
                 tb = new TechnicianBean();
                 tb.setTechID(rs.getInt("techID"));
-                tb.setName(rs.getString("name"));
+                tb.setName(rs.getString("techname"));
                 tb.setPwd(rs.getString("password"));
             }
             pStmnt.close();
@@ -233,7 +233,7 @@ public class ESDDB {
                 // set the record detail to the customer bean
                 sb = new SeniorBean();
                 sb.setSeniorID(rs.getInt("seniorID"));
-                sb.setName(rs.getString("name"));
+                sb.setName(rs.getString("seniorname"));
                 sb.setPwd(rs.getString("password"));
             }
             pStmnt.close();
@@ -394,7 +394,7 @@ public class ESDDB {
             while (rs.next()) {
                 StudentBean sb = new StudentBean();
                 sb.setStudID(rs.getInt("studentID"));
-                sb.setName(rs.getString("name"));
+                sb.setName(rs.getString("studname"));
                 sb.setPwd(rs.getString("password"));
                 list.add(sb);
             }
@@ -719,7 +719,7 @@ public class ESDDB {
                 rrb.setEquipname(rs.getString("equipname"));
                 rrb.setBorrowstatus(rs.getString("borrowstatus"));
                 rrb.setApplication(rs.getString("applicationTime"));
-                rrb.setName(rs.getString("name"));
+                rrb.setStudname(rs.getString("studname"));
                 rrb.setBorrowID(rs.getInt("borrowID"));
                 list.add(rrb);
             }
@@ -898,7 +898,56 @@ public class ESDDB {
                 rrb.setEquipname(rs.getString("equipname"));
                 rrb.setBorrow(rs.getString("borrowTime"));
                 rrb.setReturnTime(rs.getString("returnTime"));
-                rrb.setName(rs.getString("name"));
+                rrb.setStudname(rs.getString("studname"));
+                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList queryborrow() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT *\n" +
+                                        "FROM borrow, equipment, student, technician\n" +
+                                        "WHERE student.studentID = borrow.studentID AND equipment.equipmentID = borrow.equipmentID AND technician.techID = borrow.techID";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList list = new ArrayList();
+
+            while (rs.next()) {
+                ReserveRecordBean rrb = new ReserveRecordBean();
+                rrb.setEquipname(rs.getString("equipname"));
+                rrb.setBorrowstatus(rs.getString("borrowstatus"));
+                rrb.setApplication(rs.getString("applicationTime"));
+                rrb.setStudname(rs.getString("studname"));
+                rrb.setActual(rs.getString("actualreturnTime"));
+                rrb.setReturnTime(rs.getString("returnTime"));
+                rrb.setTechname(rs.getString("techname"));
                 list.add(rrb);
             }
             return list;
