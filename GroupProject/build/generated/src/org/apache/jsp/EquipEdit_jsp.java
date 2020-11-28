@@ -97,7 +97,7 @@ public final class EquipEdit_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    <input name=\"status\" type=\"radio\" value=\"N\" id=\"Nonavailable\" ");
  if("N".equalsIgnoreCase(status)){out.write("checked");} 
       out.write("/><label for=\"Nonavailable\"> Nonavailable</label><br>\n");
-      out.write("            <input type=\"submit\" value=\"submit\"/> <br>\n");
+      out.write("                    <input type=\"submit\" value=\"submit\"/> <button value=\"back\" onclick=\"location.href'TechMain.jsp'\"></button><br>\n");
       out.write("        </form>\n");
       out.write("    </body>\n");
       out.write("</html>\n");

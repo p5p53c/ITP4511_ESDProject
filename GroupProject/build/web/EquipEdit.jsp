@@ -33,7 +33,7 @@
             Quantity <input name="qty" type="number" value="<%=qty%>" required/> <br>
             Status <input name="status" type="radio" value="A" id="Available" required <% if("A".equalsIgnoreCase(status)){out.write("checked");} %>/><label for="Available"> Available</label> | 
                     <input name="status" type="radio" value="N" id="Nonavailable" <% if("N".equalsIgnoreCase(status)){out.write("checked");} %>/><label for="Nonavailable"> Nonavailable</label><br>
-            <input type="submit" value="submit"/> <br>
+                    <input type="submit" value="submit"/> <input type="button" value="Back" onclick="javascript:window.history.back()"><br>
         </form>
     </body>
 </html>

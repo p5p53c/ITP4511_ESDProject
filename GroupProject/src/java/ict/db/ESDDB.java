@@ -8,7 +8,11 @@ package ict.db;
 import ict.bean.*;
 import java.io.IOException;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -659,8 +663,7 @@ public class ESDDB {
             if (cnnct != null) {
                 try {
                     cnnct.close();
-                } catch (SQLException sqlEx) {
-                }
+                } catch (SQLException sqlEx) { }
             }
         }
         return 0;
@@ -699,5 +702,125 @@ public class ESDDB {
             }
         }
         return 0;
+    }
+    
+    public ArrayList queryTechRecord() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT *\n" +
+                                        "FROM equipment, borrow, student\n" +
+                                        "WHERE student.studentID = borrow.studentID AND equipment.equipmentID = borrow.equipmentID AND borrow.borrowstatus=\"W\"";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            //Statement s = cnnct.createStatement();
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList list = new ArrayList();
+
+            while (rs.next()) {
+                ReserveRecordBean rrb = new ReserveRecordBean();
+                rrb.setEquipname(rs.getString("equipname"));
+                rrb.setBorrowstatus(rs.getString("borrowstatus"));
+                rrb.setApplication(rs.getString("applicationTime"));
+                rrb.setName(rs.getString("name"));
+                rrb.setBorrowID(rs.getInt("borrowID"));
+                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
+    
+    public void borrowrequest(int borrowID, int techId, String borrowdate, String returndate) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE borrow SET borrowstatus=?,  techID=?, borrowTime=?, returnTime=? WHERE borrowID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, "A");
+            pStmnt.setInt(2, techId);
+            pStmnt.setString(3, borrowdate);
+            pStmnt.setString(4, returndate);
+            pStmnt.setInt(5, borrowID);
+            pStmnt.executeUpdate();
+        }catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return;
+    }
+    
+    public void borrowrequest(int borrowID, int techId) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE borrow SET borrowstatus=?,  techID=? WHERE borrowID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, "R");
+            pStmnt.setInt(2, techId);
+            pStmnt.setInt(3, borrowID);
+            pStmnt.executeUpdate();
+        }catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return;
     }
 }

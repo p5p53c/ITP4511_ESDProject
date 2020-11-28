@@ -49,10 +49,17 @@
                     %>
                     <td><%=name%></td>
                     <td><%=qty%></td>
-                    <td><%=status%></td>
+                    <td><%
+                            if ("Delete".equalsIgnoreCase(type))
+                                out.print("Delete");
+                            else if ("N".equalsIgnoreCase(status))
+                                out.print("Nonavailable");
+                            else if ("A".equalsIgnoreCase(status))
+                                out.print("Available");
+                        %></td>
                 </tr>
                 <tr>
-                    <td colspan="4"><input type="submit" value="Confirm"></td>
+                    <td colspan="4"><input type="submit" value="Confirm">   <input type="button" value="Back" onclick="javascript:window.history.back()"></td>
                 </tr>
             </table>
         </form>

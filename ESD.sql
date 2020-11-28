@@ -29,10 +29,10 @@ CREATE TABLE `senior` (
 DROP TABLE IF EXISTS `equipment`;
 CREATE TABLE `equipment` (
     `equipmentID`   int(10)     NOT NULL    AUTO_INCREMENT,
-    `equipname`          VARCHAR(20) NOT NULL,
+    `equipname`     VARCHAR(20) NOT NULL,
     `qty`           int(3)      NOT NULL,
 	`availableqty`	int(3)		NOT NULL,
-    `equipstatus`        VARCHAR(10) NOT NULL,
+    `equipstatus`        VARCHAR(10) NOT NULL COMMENT 'A=Available, N=Nonavailable, D=Delete',
     CONSTRAINT `equipment_pk` PRIMARY KEY(`equipmentID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -41,7 +41,7 @@ CREATE TABLE `borrow` (
     `borrowID`      	int(10)     NOT NULL    AUTO_INCREMENT,
     `equipmentID`   	int(10)     NOT NULL,
     `studentID`     	int(10)     NOT NULL,
-    `borrowstatus`      VARCHAR(10) NOT NULL,
+    `borrowstatus`      VARCHAR(10) NOT NULL COMMENT 'A=Accept, R=Reject',
     `applicationTime`   DATE    	DEFAULT     CURRENT_TIMESTAMP,
 	`borrowTime`		DATE		NULL,
 	`returnTime`		DATE		NULL,

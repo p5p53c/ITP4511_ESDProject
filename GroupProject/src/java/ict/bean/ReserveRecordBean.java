@@ -11,10 +11,27 @@ package ict.bean;
  */
 public class ReserveRecordBean {
     
-    private String equipname, borrowstatus;
+    private int borrowID;
+    private String equipname, borrowstatus, name;
     private String application, borrow, returnTime, actual;
 
     public ReserveRecordBean() {
+    }
+
+    public int getBorrowID() {
+        return borrowID;
+    }
+
+    public void setBorrowID(int borrowID) {
+        this.borrowID = borrowID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEquipname() {
