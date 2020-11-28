@@ -878,4 +878,51 @@ public class ESDDB {
         }
         return due;
     }
+    
+    public ArrayList queryTechDue() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * \n" +
+                                        "FROM borrow, student, equipment \n" +
+                                        "WHERE student.studentID = borrow.studentID AND equipment.equipmentID = borrow.equipmentID AND actualreturnTime IS NULL AND returnTime < NOW();";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            //Statement s = cnnct.createStatement();
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList list = new ArrayList();
+
+            while (rs.next()) {
+                ReserveRecordBean rrb = new ReserveRecordBean();
+                rrb.setEquipname(rs.getString("equipname"));
+                rrb.setBorrow(rs.getString("borrowTime"));
+                rrb.setReturnTime(rs.getString("returnTime"));
+                rrb.setName(rs.getString("name"));
+                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
 }

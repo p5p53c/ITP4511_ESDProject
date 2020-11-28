@@ -23,7 +23,7 @@
             <%
                 int due = Integer.parseInt(session.getAttribute("due").toString());
                 if (due > 0) {
-                    out.print("<ol><p style=\"color:red\">" + due + " equipment haven't return</p></ol>");
+                    out.print("<ol><a href=\"ListController?action=techduelist\"><p style=\"color:red\">" + due + " equipment haven't return</p></a></ol>");
                 }
             %>
         </ul>
