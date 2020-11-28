@@ -81,6 +81,8 @@ public class LoginController extends HttpServlet {
                 bean = db.queryStudByID(username);
                 session.setAttribute("userInfo", bean);
                 targetURL = "/StudentMain.jsp";
+                int due = checkStudDue(username);
+                session.setAttribute("due", due);
             } else {
                 targetURL = "/loginError.jsp";
             }
@@ -92,6 +94,8 @@ public class LoginController extends HttpServlet {
                 bean = db.queryTechByID(username);
                 session.setAttribute("userInfo", bean);
                 targetURL = "/TechMain.jsp";
+                int due = checkTechDue();
+                session.setAttribute("due", due);
             } else {
                 targetURL = "/loginError.jsp";
             }
@@ -106,8 +110,6 @@ public class LoginController extends HttpServlet {
             } else {
                 targetURL = "/loginError.jsp";
             }
-        } else {
-            
         }
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/" + targetURL);
@@ -149,4 +151,11 @@ public class LoginController extends HttpServlet {
         db = new ESDDB (dbUrl, dbUser, dbPassword);
     }
 
+    private int checkStudDue(int studID) {
+        return db.checkStudDue(studID);
+    }
+    
+    private int checkTechDue() {
+        return db.checkTechDue();
+    }
 }

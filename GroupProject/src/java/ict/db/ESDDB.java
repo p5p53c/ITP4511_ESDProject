@@ -8,11 +8,7 @@ package ict.db;
 import ict.bean.*;
 import java.io.IOException;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -822,5 +818,64 @@ public class ESDDB {
             }
         }
         return;
+    }
+    
+    public int checkStudDue(int studID) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        int due = 0;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * \n" +
+                                        "FROM borrow \n" +
+                                        "WHERE actualreturnTime IS NULL AND returnTime < NOW() AND studentID=?;";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, studID);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                due++;
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return due;
+    }
+    
+    public int checkTechDue() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        int due = 0;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * \n" +
+                                        "FROM borrow \n" +
+                                        "WHERE actualreturnTime IS NULL AND returnTime < NOW();";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                due++;
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return due;
     }
 }

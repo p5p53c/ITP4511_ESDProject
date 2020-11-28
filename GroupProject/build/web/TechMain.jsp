@@ -20,6 +20,12 @@
             <ol><a href="ListController?action=techrequestlist">Borrowing request</a></ol>
             <ol>Handle check-in/out of equipment</ol>
             <ol>Lookup overdue items</ol>
+            <%
+                int due = Integer.parseInt(session.getAttribute("due").toString());
+                if (due > 0) {
+                    out.print("<ol><p style=\"color:red\">" + due + " equipment haven't return</p></ol>");
+                }
+            %>
         </ul>
         <form method="post" action="main">
             <input type="hidden" name="action" value="logout">
