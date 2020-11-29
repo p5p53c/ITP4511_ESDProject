@@ -6,6 +6,8 @@
 package ict.servlet;
 
 import ict.bean.EquipmentBean;
+import ict.bean.StudentBean;
+import ict.bean.TechnicianBean;
 import ict.db.ESDDB;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,6 +81,32 @@ public class ListController extends HttpServlet {
             request.setAttribute("reserverecord", reserverecord);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/BorrowRecord.jsp");
             rd.forward(request, response);
+        } else if ("stud".equalsIgnoreCase(action)) {
+            ArrayList stud = db.queryStud();
+            request.setAttribute("memberlist", stud);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/StudAccountList.jsp");
+            rd.forward(request, response);
+        } else if ("tech".equalsIgnoreCase(action)) {
+            ArrayList tech = db.queryTech();
+            request.setAttribute("memberlist", tech);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/TechAccountList.jsp");
+            rd.forward(request, response);
+        } else if ("editStud".equalsIgnoreCase(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            if (id != 0) {
+                StudentBean student = db.queryStudByID(id);
+                request.setAttribute("s", student);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountEdit.jsp");
+                rd.forward(request, response);
+            }
+        } else if ("editTech".equalsIgnoreCase(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            if (id != 0) {
+                StudentBean student = db.queryTechByIDreturnStudent(id);
+                request.setAttribute("s", student);
+                RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountEdit.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ CREATE TABLE `student` (
     `studentID` int(10)     NOT NULL    AUTO_INCREMENT,
     `studname`      VARCHAR(20) NOT NULL,
     `password`  VARCHAR(20) NOT NULL,
+    `studStatus`    VARCHAR(1) NOT NULL COMMENT 'A=Available, D=Delete',
     CONSTRAINT `student_pk` PRIMARY KEY (`studentID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -15,6 +16,7 @@ CREATE TABLE `technician` (
     `techID`   int(10)     	NOT NULL    AUTO_INCREMENT,
     `techname`      VARCHAR(20) NOT NULL,
     `password`  VARCHAR(20) NOT NULL,
+    `techStatus`    VARCHAR(1) NOT NULL COMMENT 'A=Available, D=Delete',
     CONSTRAINT `staff_pk` PRIMARY KEY(`techID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -23,6 +25,7 @@ CREATE TABLE `senior` (
     `seniorID`   int(10)    NOT NULL    AUTO_INCREMENT,
     `seniorname`      VARCHAR(20) NOT NULL,
     `password`  VARCHAR(20) NOT NULL,
+    `seniorStatus`    VARCHAR(1) NOT NULL COMMENT 'A=Available, D=Delete',
     CONSTRAINT `staff_pk` PRIMARY KEY(`seniorID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -57,15 +60,15 @@ CREATE TABLE `borrow` (
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*CREATE STUDENT*/
-INSERT INTO `student` VALUES(1000000, "Test Student A", "12345678");
+INSERT INTO `student` VALUES(1000000, "Test Student A", "12345678", "A");
 SET @studentID = last_insert_id();
 
 /*CREATE STAFF*/
-INSERT INTO `technician` VALUES(2000000, "Test Technician A", "87654321");
+INSERT INTO `technician` VALUES(2000000, "Test Technician A", "87654321", "A");
 SET @staffID = last_insert_id();
 
 /*CREATE SENIOR*/
-INSERT INTO `senior` VALUES(3000000, "Test Senior A", "1234");
+INSERT INTO `senior` VALUES(3000000, "Test Senior A", "1234", "A");
 SET @seniorID = last_insert_id();
 
 /*CREATE EQUIPMENT*/

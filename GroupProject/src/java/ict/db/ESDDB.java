@@ -31,16 +31,17 @@ public class ESDDB {
         return DriverManager.getConnection(url, username, password);
     }
     
-    public boolean addStudAC(String name, String pwd) {
+    public boolean addStudAC(StudentBean sb) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO student (name, password) VALUES (?,?)";
+            String preQueryStatement = "INSERT INTO student (studname, password, studStatus) VALUES (?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            pStmnt.setString(1, name);
-            pStmnt.setString(2, pwd);
+            pStmnt.setString(1, sb.getName());
+            pStmnt.setString(2, sb.getPwd());
+            pStmnt.setString(3, "A");
             int rowCount = pStmnt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;
@@ -56,6 +57,37 @@ public class ESDDB {
             ex.printStackTrace();
         }
         return isSuccess;
+    }
+    
+    public int getStudID() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        int StudID = 0;
+        try {
+            //1.  get Connection
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM student";
+            //2.  get the prepare Statement
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            //4. execute the query and assign to the result 
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                // set the record detail to the customer bean
+                StudID = rs.getInt("studentID");
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return StudID;
     }
     
     public boolean addEquipmentRecord(String name, int qty, String status) {
@@ -87,16 +119,17 @@ public class ESDDB {
         return isSuccess;
     }
     
-    public boolean addTechAC(String name, String pwd) {
+    public boolean addTechAC(TechnicianBean tb) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO technician (name, password) VALUES (?,?)";
+            String preQueryStatement = "INSERT INTO technician (techname, password, techStatus) VALUES (?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            pStmnt.setString(1, name);
-            pStmnt.setString(2, pwd);
+            pStmnt.setString(1, tb.getName());
+            pStmnt.setString(2, tb.getPwd());
+            pStmnt.setString(3, "A");
             int rowCount = pStmnt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;
@@ -114,16 +147,48 @@ public class ESDDB {
         return isSuccess;
     }
     
+    public int getTechID() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        int TechID = 0;
+        try {
+            //1.  get Connection
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM technician";
+            //2.  get the prepare Statement
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            //4. execute the query and assign to the result 
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                // set the record detail to the customer bean
+                TechID = rs.getInt("techID");
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return TechID;
+    }
+    
     public boolean addSeniorAC(String name, String pwd) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO senior (name, password) VALUES (?,?)";
+            String preQueryStatement = "INSERT INTO senior (name, password, seniorStatus) VALUES (?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, name);
             pStmnt.setString(2, pwd);
+            pStmnt.setString(3, "A");
             int rowCount = pStmnt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;
@@ -211,6 +276,42 @@ public class ESDDB {
             ex.printStackTrace();
         }
         return tb;
+    }
+    
+    public StudentBean queryTechByIDreturnStudent(int id) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        StudentBean sb = null;
+        try {
+            //1.  get Connection
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM technician WHERE techID=?";
+            //2.  get the prepare Statement
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            //3. update the placehoder with id
+            pStmnt.setInt(1, id);
+            ResultSet rs = null;
+            //4. execute the query and assign to the result 
+            rs = pStmnt.executeQuery();
+            if (rs.next()) {
+                // set the record detail to the customer bean
+                sb = new StudentBean();
+                sb.setStudID(rs.getInt("techID"));
+                sb.setName(rs.getString("techname"));
+                sb.setPwd(rs.getString("password"));
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return sb;
     }
     
     public SeniorBean querySeniorByID(int id) {
@@ -397,6 +498,50 @@ public class ESDDB {
                 sb.setName(rs.getString("studname"));
                 sb.setPwd(rs.getString("password"));
                 list.add(sb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList queryTech() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM  technician";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            //Statement s = cnnct.createStatement();
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList list = new ArrayList();
+
+            while (rs.next()) {
+                TechnicianBean tb = new TechnicianBean();
+                tb.setTechID(rs.getInt("techID"));
+                tb.setName(rs.getString("techname"));
+                tb.setPwd(rs.getString("password"));
+                list.add(tb);
             }
             return list;
         } catch (SQLException ex) {
@@ -973,5 +1118,77 @@ public class ESDDB {
             }
         }
         return null;
+    }
+    
+    public void editStud(StudentBean sb) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE student SET studname=? ,password=? WHERE studentID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, sb.getName());
+            pStmnt.setString(2, sb.getPwd());
+            pStmnt.setInt(3, sb.getStudID());
+            //Statement s = cnnct.createStatement();
+            pStmnt.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) { }
+            }
+        }
+        return;
+    }
+    
+    public void editTech(TechnicianBean tb) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE technician SET techname=? ,password=? WHERE techID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, tb.getName());
+            pStmnt.setString(2, tb.getPwd());
+            pStmnt.setInt(3, tb.getTechID());
+            //Statement s = cnnct.createStatement();
+            pStmnt.executeUpdate();
+            return;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) { }
+            }
+        }
+        return;
     }
 }

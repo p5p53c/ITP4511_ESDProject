@@ -3,9 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/StudentMain.jsp</file>
-            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/TechMain.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/src/java/ict/servlet/ReserveControll.java</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/src/java/ict/servlet/ListController.java</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/SeniorMain.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/index.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/reserverecord.jsp</file>
             <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/src/java/ict/servlet/LoginController.java</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/src/java/ict/db/ESDDB.java</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/AccountManage.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/src/java/ict/servlet/EquipController.java</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/src/java/ict/servlet/AccountController.java</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/BorrowRequest.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/BorrowRecord.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/AccountConfirm.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/src/java/ict/bean/ReserveRecordBean.java</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/AccountEdit.jsp</file>
+            <file>file:/F:/Users/p5p53/Documents/IVE/ITP4511%20ESD/Group%20Project/ITP4511_ESDProject/GroupProject/web/TechMain.jsp</file>
         </group>
     </open-files>
 </project-private>
