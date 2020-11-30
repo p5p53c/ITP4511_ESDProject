@@ -635,11 +635,10 @@ public class ESDDB {
         
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM senior WHERE seniorID =? and password =? AND seniorStatus=?";
+            String preQueryStatement = "SELECT * FROM senior WHERE seniorID =? and password =? AND seniorStatus='A'";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1, user);
             pStmnt.setString(2, pwd);
-            pStmnt.setString(3, "A");
             pStmnt.executeQuery();
             ResultSet rs = pStmnt.getResultSet();
             if (rs.next()) {
