@@ -107,6 +107,11 @@ public class ListController extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountEdit.jsp");
                 rd.forward(request, response);
             }
+        } else if ("techreturnlist".equalsIgnoreCase(action)) {
+            ArrayList reserverecord = db.queryReturnList();
+            request.setAttribute("reserverecord", reserverecord);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ReturnList.jsp");
+            rd.forward(request, response);
         }
     }
 }

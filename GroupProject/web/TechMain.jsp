@@ -18,7 +18,7 @@
         <ul>
             <ol><a href="ListController?action=techlist">Inventory management</a></ol>
             <ol><a href="ListController?action=techrequestlist">Borrowing request</a></ol>
-            <ol>Handle check-in/out of equipment</ol>
+            <ol><a href="ListController?action=techreturnlist">Return equipment</a></ol>
             <%
                 int due = Integer.parseInt(session.getAttribute("due").toString());
                 if (due > 0) {
