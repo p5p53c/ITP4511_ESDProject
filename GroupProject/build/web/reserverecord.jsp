@@ -38,6 +38,6 @@
                 }
             %>
         </table>
-        <a href="StudentMain.jsp">Back</a>
+        <input type="button" value="Back" onclick="javascript:window.history.back()">
     </body>
 </html>

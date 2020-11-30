@@ -11,11 +11,19 @@ package ict.bean;
  */
 public class ReserveRecordBean {
     
-    private int borrowID;
+    private int borrowID, count;
     private String equipname, borrowstatus, studname, techname, seniorname;
     private String application, borrow, returnTime, actual;
 
     public ReserveRecordBean() {
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public String getStudname() {

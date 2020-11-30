@@ -102,7 +102,17 @@ public class ReserveControll extends HttpServlet {
             db.borrowrequest(borrowID, techID);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ListController?action=techrequestlist");
             rd.forward(request, response);
+        } else if ("return".equalsIgnoreCase(action)) {
+            int borrowID = Integer.parseInt(request.getParameter("id"));
+            Date date = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String returndate = formatter.format(date);
+            db.techReturnEquip(borrowID, returndate);
+            ArrayList reserverecord = db.queryReturnList();
+            request.setAttribute("reserverecord", reserverecord);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ReturnList.jsp");
+            rd.forward(request, response);
         }
-    }
+    } 
 
 }

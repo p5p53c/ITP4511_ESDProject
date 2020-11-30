@@ -18,6 +18,7 @@
         <ul>
             <ol><a href="ListController?action=techborrowlist">Borrowing Record</a></ol>
             <ol><a href="AccountManage.jsp">Account management</a></ol>
+            <ol><a href="UtilizationInput.jsp">Equipment utilization rate</a></ol>
         </ul>
         <form method="post" action="main">
             <input type="hidden" name="action" value="logout">

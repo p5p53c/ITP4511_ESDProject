@@ -12,6 +12,8 @@ import ict.db.ESDDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -107,6 +109,17 @@ public class ListController extends HttpServlet {
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountEdit.jsp");
                 rd.forward(request, response);
             }
+        } else if ("techreturnlist".equalsIgnoreCase(action)) {
+            ArrayList reserverecord = db.queryReturnList();
+            request.setAttribute("reserverecord", reserverecord);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ReturnList.jsp");
+            rd.forward(request, response);
+        } else if ("listStudRecord".equalsIgnoreCase(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            ArrayList reserverecord = db.queryStudRecord(id);
+            request.setAttribute("reserverecord", reserverecord);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/reserverecord.jsp");
+            rd.forward(request, response);
         }
     }
 }
