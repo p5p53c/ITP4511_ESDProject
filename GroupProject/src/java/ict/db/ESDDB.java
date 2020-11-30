@@ -485,7 +485,7 @@ public class ESDDB {
         PreparedStatement pStmnt = null;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  student";
+            String preQueryStatement = "SELECT * FROM  student WHERE studStatus<>'D'";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //Statement s = cnnct.createStatement();
             ResultSet rs = pStmnt.executeQuery();
@@ -529,7 +529,7 @@ public class ESDDB {
         PreparedStatement pStmnt = null;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM  technician";
+            String preQueryStatement = "SELECT * FROM  technician WHERE techStatus<>'D' ";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             //Statement s = cnnct.createStatement();
             ResultSet rs = pStmnt.executeQuery();
@@ -575,10 +575,11 @@ public class ESDDB {
         
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM student WHERE studentID =? and password =?";
+            String preQueryStatement = "SELECT * FROM student WHERE studentID =? and password =? AND studStatus=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1, user);
             pStmnt.setString(2, pwd);
+            pStmnt.setString(3, "A");
             pStmnt.executeQuery();
             ResultSet rs = pStmnt.getResultSet();
             if (rs.next()) {
@@ -604,10 +605,11 @@ public class ESDDB {
         
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM technician WHERE techID =? and password =?";
+            String preQueryStatement = "SELECT * FROM technician WHERE techID =? and password =? AND techStatus=?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1, user);
             pStmnt.setString(2, pwd);
+            pStmnt.setString(3, "A");
             pStmnt.executeQuery();
             ResultSet rs = pStmnt.getResultSet();
             if (rs.next()) {
@@ -633,7 +635,7 @@ public class ESDDB {
         
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM senior WHERE seniorID =? and password =?";
+            String preQueryStatement = "SELECT * FROM senior WHERE seniorID =? and password =? AND seniorStatus='A'";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1, user);
             pStmnt.setString(2, pwd);
@@ -1257,6 +1259,92 @@ public class ESDDB {
                 try {
                     cnnct.close();
                 } catch (SQLException sqlEx) { }
+            }
+        }
+        return;
+    }
+    
+    public ArrayList queryReturnList() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * \n" +
+                                        "FROM borrow, student, equipment \n" +
+                                        "WHERE student.studentID = borrow.studentID AND equipment.equipmentID = borrow.equipmentID AND actualreturnTime IS NULL AND borrowstatus = 'A';";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            //Statement s = cnnct.createStatement();
+            ResultSet rs = pStmnt.executeQuery();
+
+            ArrayList list = new ArrayList();
+
+            while (rs.next()) {
+                ReserveRecordBean rrb = new ReserveRecordBean();
+                rrb.setBorrowID(rs.getInt("borrowID"));
+                rrb.setEquipname(rs.getString("equipname"));
+                rrb.setBorrow(rs.getString("borrowTime"));
+                rrb.setReturnTime(rs.getString("returnTime"));
+                rrb.setStudname(rs.getString("studname"));
+                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
+    
+    public void techReturnEquip(int id, String returndate) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "UPDATE borrow SET actualreturnTime=? WHERE borrowID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, returndate);
+            pStmnt.setInt(2, id);
+            pStmnt.executeUpdate();
+            preQueryStatement = "UPDATE equipment SET availableqty = availableqty + 1 WHERE equipmentID=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, id);
+            pStmnt.executeUpdate();
+        }catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
             }
         }
         return;
