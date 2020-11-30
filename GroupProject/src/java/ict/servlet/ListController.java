@@ -112,6 +112,12 @@ public class ListController extends HttpServlet {
             request.setAttribute("reserverecord", reserverecord);
             RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/ReturnList.jsp");
             rd.forward(request, response);
+        } else if ("listStudRecord".equalsIgnoreCase(action)) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            ArrayList reserverecord = db.queryStudRecord(id);
+            request.setAttribute("reserverecord", reserverecord);
+            RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/reserverecord.jsp");
+            rd.forward(request, response);
         }
     }
 }
