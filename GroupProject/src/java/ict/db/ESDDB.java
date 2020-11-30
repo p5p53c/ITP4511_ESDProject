@@ -1349,4 +1349,93 @@ public class ESDDB {
         }
         return;
     }
+    
+    public ArrayList<ReserveRecordBean> querySelectMonth(int month, int year) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT equipment.equipname, COUNT(borrow.equipmentID) AS count\n" +
+                                        "FROM borrow, equipment\n" +
+                                        "WHERE borrow.borrowstatus = 'A' AND MONTH(borrow.applicationTime)=? AND YEAR(borrow.applicationTime)=? AND borrow.equipmentID = equipment.equipmentID\n" +
+                                        "GROUP BY borrow.equipmentID";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, month);
+            pStmnt.setInt(2, year);
+            ResultSet rs = pStmnt.executeQuery();
+            ArrayList list = new ArrayList();
+            while (rs.next()) {
+                ReserveRecordBean rrb = new ReserveRecordBean();
+                rrb.setEquipname("equipname");
+                rrb.setCount(rs.getInt("count"));
+                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<ReserveRecordBean> querySelectYear(int year) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT equipname, COUNT(equipmentID) AS count\n" +
+                                        "FROM borrow, equipment\n" +
+                                        "WHERE borrow.borrowstatus = 'A' AND YEAR(borrow.applicationTime)=? AND borrow.equipmentID = equipment.equipmentID\n" +
+                                        "GROUP BY equipmentID";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setInt(1, year);
+            ResultSet rs = pStmnt.executeQuery();
+            ArrayList list = new ArrayList();
+            while (rs.next()) {
+                ReserveRecordBean rrb = new ReserveRecordBean();
+                rrb.setEquipname("equipname");
+                rrb.setCount(rs.getInt("count"));
+                list.add(rrb);
+            }
+            return list;
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (pStmnt != null) {
+                try {
+                    pStmnt.close();
+                } catch (SQLException e) {
+                }
+            }
+            if (cnnct != null) {
+                try {
+                    cnnct.close();
+                } catch (SQLException sqlEx) {
+                }
+            }
+        }
+        return null;
+    }
 }
