@@ -27,7 +27,7 @@
                     
                     out.print("<tr>");
                     out.print("<td>" + rr.getEquipname() + "</td>");
-                    out.print("<td>" + rr.getName() + "</td>");
+                    out.print("<td>" + rr.getStudname()+ "</td>");
                     out.print("<td>" + rr.getBorrow() + "</td>");
                     out.print("<td>" + rr.getReturnTime() + "</td>");
                     out.println("</tr>");

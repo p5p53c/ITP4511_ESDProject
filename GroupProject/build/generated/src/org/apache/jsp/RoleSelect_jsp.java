@@ -55,6 +55,7 @@ public final class RoleSelect_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <ol><a href=\"ListController?action=stud\">Student</a></ol>\n");
       out.write("            <ol><a href=\"ListController?action=tech\">Technician</a></ol>\n");
       out.write("        </ul>\n");
+      out.write("        <a href=\"SeniorMain.jsp\">Back</a>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

@@ -16,5 +16,6 @@
             <ol><a href="ListController?action=stud">Student</a></ol>
             <ol><a href="ListController?action=tech">Technician</a></ol>
         </ul>
+        <a href="SeniorMain.jsp">Back</a>
     </body>
 </html>

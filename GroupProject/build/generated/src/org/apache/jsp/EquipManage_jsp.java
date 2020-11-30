@@ -80,7 +80,13 @@ public final class EquipManage_jsp extends org.apache.jasper.runtime.HttpJspBase
 
                     for (int i = 0; i < equipment.size(); i++) {
                         EquipmentBean e = equipment.get(i);
-                        out.println("<tr><td>" + e.getName() + "</td><td>" + e.getQty() + "</td><td>" + e.getAvaqty() + "</td></tr>");
+                        out.println("<tr>");
+                        out.println("<td>" + e.getName() + "</td>");
+                        out.println("<td>" + e.getQty() + "</td>");
+                        out.println("<td>" + e.getAvaqty() + "</td>");
+                        out.println("<td><a href=\"ListController?action=editEquip&id=" + e.getEquipmentID() + "\">edit</a> | ");
+                        out.println("<a href=\"EquipController?action=delete&confirm=false&id=" + e.getEquipmentID() + "\">delete</a></td>");
+                        out.println("</tr>");
                     }
                 
       out.write("\n");

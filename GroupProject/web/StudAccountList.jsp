@@ -29,7 +29,7 @@
                     out.print("<td>" + s.getStudID() + "</td>");
                     out.print("<td>" + s.getName() + "</td>");
                     out.print("<td><a href=\"ListController?action=editStud&id=" + s.getStudID() + "\">edit</a> | ");
-                    out.print("<a href=\"AccountController?action&confirm=false&id=" + s.getStudID() + "\">delete</a></td>");
+                    out.print("<a href=\"AccountController?action=delete&confirm=false&role=Student&id=" + s.getStudID() + "\">delete</a></td>");
                     out.println("</tr>");
                 }
         %>

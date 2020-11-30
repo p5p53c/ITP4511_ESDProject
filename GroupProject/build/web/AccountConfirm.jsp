@@ -4,6 +4,7 @@
     Author     : p5p53
 --%>
 
+<%@page import="ict.bean.StudentBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,7 +23,7 @@
             if (type.equals("Create") || type.equals("Edit"))
                 action = "AccountController";
             else 
-                action = "EquipController";
+                action = "AccountController";
         %>
         <form action="<%=action%>" method="post">
             <input type="hidden" name="action" value="<%=type%>">

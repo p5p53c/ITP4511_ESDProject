@@ -67,8 +67,16 @@ public final class TechMain_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <p>Welcome to the IVPET Borrowing System</p>\n");
       out.write("        <ul>\n");
       out.write("            <ol><a href=\"ListController?action=techlist\">Inventory management</a></ol>\n");
+      out.write("            <ol><a href=\"ListController?action=techrequestlist\">Borrowing request</a></ol>\n");
       out.write("            <ol>Handle check-in/out of equipment</ol>\n");
-      out.write("            <ol>Lookup overdue items</ol>\n");
+      out.write("            ");
+
+                int due = Integer.parseInt(session.getAttribute("due").toString());
+                if (due > 0) {
+                    out.print("<ol><a href=\"ListController?action=techduelist\"><p style=\"color:red\">" + due + " equipment haven't return</p></a></ol>");
+                }
+            
+      out.write("\n");
       out.write("        </ul>\n");
       out.write("        <form method=\"post\" action=\"main\">\n");
       out.write("            <input type=\"hidden\" name=\"action\" value=\"logout\">\n");

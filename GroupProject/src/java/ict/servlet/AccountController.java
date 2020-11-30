@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,7 +46,39 @@ public class AccountController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doPost(request, response);
+        String action = request.getParameter("action");
+        
+        if ("delete".equalsIgnoreCase(action)) {
+            String role = request.getParameter("role");
+            boolean confirm = Boolean.parseBoolean(request.getParameter("confirm"));
+            if ("Student".equalsIgnoreCase(role)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (confirm == true) {
+                    db.delStud(id);
+                    ArrayList stud = db.queryStud();
+                    request.setAttribute("memberlist", stud);
+                    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/StudAccountList.jsp");
+                    rd.forward(request, response);
+                } else {
+                    StudentBean sb = db.queryStudByID(id);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountConfirm.jsp?action=delete&id=" + id + "&name=" + sb.getName()+ "&pwd=" + sb.getPwd()+ "&role=Student");
+                    rd.forward(request, response);
+                }
+            } else if ("Tech".equalsIgnoreCase(role)) {
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (confirm == true) {
+                    db.delTech(id);
+                    ArrayList tech = db.queryTech();
+                    request.setAttribute("memberlist", tech);
+                    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/TechAccountList.jsp");
+                    rd.forward(request, response);
+                } else {
+                    TechnicianBean tb = db.queryTechByID(id);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountConfirm.jsp?action=delete&id=" + id + "&name=" + tb.getName()+ "&pwd=" + tb.getPwd()+ "&role=Tech");
+                    rd.forward(request, response);
+                }
+            }
+        }
     }
 
     /**
@@ -123,7 +156,6 @@ public class AccountController extends HttpServlet {
                 RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/TechAccountList.jsp");
                 rd.forward(request, response);
             }
-        }
+        } 
     }
-
 }

@@ -111,8 +111,7 @@ public class LoginController extends HttpServlet {
                 targetURL = "/loginError.jsp";
             }
         }
-        RequestDispatcher rd;
-        rd = getServletContext().getRequestDispatcher("/" + targetURL);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/" + targetURL);
         rd.forward(request, response);
     }
     
