@@ -17,7 +17,7 @@
             java.util.Date date= new Date();
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
-            int month = cal.get(Calendar.MONTH);
+            int month = cal.get(Calendar.MONTH) + 1;
             int year = cal.get(Calendar.YEAR);
         %>
         <form action="utilization.jsp" method="GET">

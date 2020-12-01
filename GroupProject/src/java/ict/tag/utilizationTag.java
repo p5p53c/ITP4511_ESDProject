@@ -9,7 +9,6 @@ import ict.bean.ReserveRecordBean;
 import ict.db.ESDDB;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.servlet.ServletException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -46,7 +45,7 @@ public class utilizationTag extends SimpleTagSupport {
                 }
                 out.println("</table>");
             } else if ("year".equalsIgnoreCase(range)) {
-                ArrayList<ReserveRecordBean> list = db.querySelectMonth(month, year);
+                ArrayList<ReserveRecordBean> list = db.querySelectYear(year);
                 out.println("Equipment utilization rate in " + year);
                 out.println("<table border='1'>");
                 out.println("<tr><th>Equipment Name</th><th>Borrow Time</th></tr>");
