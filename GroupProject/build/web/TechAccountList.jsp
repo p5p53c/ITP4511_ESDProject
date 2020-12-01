@@ -28,7 +28,8 @@
                     out.print("<td>" + s.getTechID() + "</td>");
                     out.print("<td>" + s.getName() + "</td>");
                     out.print("<td><a href=\"ListController?action=editTech&id=" + s.getTechID() + "\">edit</a> | ");
-                    out.print("<a href=\"AccountController?action=delete&confirm=false&role=Tech&id=" + s.getTechID() + "\">delete</a></td>");
+                    out.print("<a href=\"AccountController?action=delete&confirm=false&role=Tech&id=" + s.getTechID() + "\">delete</a> | ");
+                    out.print("<a href=\"AccountController?action=upgrade&confirm=false&id=" + s.getTechID() + "\">Upgrade to Senior</a></td>");
                     out.println("</tr>");
                 }
         %>

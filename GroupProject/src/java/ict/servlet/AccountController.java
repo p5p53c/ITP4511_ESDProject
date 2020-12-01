@@ -78,7 +78,24 @@ public class AccountController extends HttpServlet {
                     rd.forward(request, response);
                 }
             }
-        }
+        } else if ("upgrade".equalsIgnoreCase(action)) {
+                boolean confirm = Boolean.parseBoolean(request.getParameter("confirm"));
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (confirm == true) {
+                    String name = request.getParameter("name");
+                    String pwd = request.getParameter("pwd");
+                    db.delTech(id);
+                    db.addSeniorAC(name, pwd);
+                    ArrayList tech = db.queryTech();
+                    request.setAttribute("memberlist", tech);
+                    RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/TechAccountList.jsp");
+                    rd.forward(request, response);
+                } else {
+                    TechnicianBean tb = db.queryTechByID(id);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountConfirm.jsp?action=upgrade&id=" + id + "&name=" + tb.getName()+ "&pwd=" + tb.getPwd()+ "&role=STech");
+                    rd.forward(request, response);
+                }
+            }
     }
 
     /**
@@ -186,6 +203,26 @@ public class AccountController extends HttpServlet {
                     rd.forward(request, response);
                 }
             }
-        }
+        } else if ("upgrade".equalsIgnoreCase(action)) {
+                boolean confirm = Boolean.parseBoolean(request.getParameter("confirm"));
+                int id = Integer.parseInt(request.getParameter("id"));
+                if (confirm == true) {
+                    String name = request.getParameter("name");
+                    String pwd = request.getParameter("pwd");
+                    db.delTech(id);
+                    boolean isVaild = db.addSeniorAC(name, pwd);
+                    if (isVaild) {
+                        int seniorID = db.getSeniorID();
+                        PrintWriter out = response.getWriter();
+                        out.write("<html><body>");
+                        out.write("Your new ID is " + seniorID);
+                        out.write("<br><a href=\"RoleSelect.jsp\">Back</a>");
+                    }
+                } else {
+                    TechnicianBean tb = db.queryTechByID(id);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/AccountConfirm.jsp?action=upgrade&id=" + id + "&name=" + tb.getName()+ "&pwd=" + tb.getPwd()+ "&role=STech");
+                    rd.forward(request, response);
+                }
+            }
     }
 }
