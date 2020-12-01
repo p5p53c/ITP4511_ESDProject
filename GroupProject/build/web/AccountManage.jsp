@@ -12,6 +12,7 @@
         <title>Senior Technician Main</title>
     </head>
     <body>
+        <jsp:include page="SeniorNavigation.jsp" />
         <ul>
             <ol><a href="RoleSelect.jsp">List Account</a></ol>
             <ol><a href="AccountEdit.jsp">Create Account</a></ol>

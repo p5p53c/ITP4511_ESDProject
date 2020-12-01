@@ -13,6 +13,7 @@
         <title>Equipment List</title>
     </head>
     <body>
+        <jsp:include page="TechNavigation.jsp" />
         <jsp:useBean id="equipment" class="java.util.ArrayList<ict.bean.EquipmentBean>" scope="request" />
         <table border = "1">
             <tr>

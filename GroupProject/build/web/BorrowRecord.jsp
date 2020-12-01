@@ -14,6 +14,7 @@
     </head>
     <body>
         <jsp:useBean id="reserverecord" class="java.util.ArrayList<ict.bean.ReserveRecordBean>" scope="request" />
+        <jsp:include page="SeniorNavigation.jsp" />
         <table border="1">
             <tr>
                 <th>Equipment name</th>

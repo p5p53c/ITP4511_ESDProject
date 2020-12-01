@@ -14,7 +14,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+        <jsp:include page="SeniorNavigation.jsp" />
         <table border="1">
             <tr>
                 <th>ID</th>

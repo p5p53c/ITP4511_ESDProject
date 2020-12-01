@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="SeniorNavigation.jsp" />
         <ul>
             <ol><a href="ListController?action=stud">Student</a></ol>
             <ol><a href="ListController?action=tech">Technician</a></ol>

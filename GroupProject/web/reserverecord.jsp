@@ -13,6 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="StudNavigation.jsp" />
         <jsp:useBean id="reserverecord" class="java.util.ArrayList<ict.bean.ReserveRecordBean>" scope="request" />
         <table border="1">
             <tr>

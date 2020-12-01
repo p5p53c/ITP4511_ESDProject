@@ -13,6 +13,7 @@
         <title>Equipment List</title>
     </head>
     <body>
+        <jsp:include page="StudNavigation.jsp" />
         <jsp:useBean id="userInfo" class="ict.bean.StudentBean" scope="session" />
         <jsp:useBean id="equipment" class="java.util.ArrayList<ict.bean.EquipmentBean>" scope="request" />
         <input type="hidden" name="studid" value="<jsp:getProperty name="userInfo" property="studID" />">

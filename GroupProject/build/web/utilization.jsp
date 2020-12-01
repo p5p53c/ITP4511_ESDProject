@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="SeniorNavigation.jsp" />
         <%@taglib uri="/WEB-INF/tlds/utilization.tld" prefix="ict" %>
         <% 
             int month = Integer.parseInt(request.getParameter("month"));

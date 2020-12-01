@@ -13,6 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <jsp:include page="SeniorNavigation.jsp" />
         <% 
             java.util.Date date= new Date();
             Calendar cal = Calendar.getInstance();
