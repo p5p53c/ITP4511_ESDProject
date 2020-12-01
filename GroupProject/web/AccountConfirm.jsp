@@ -32,6 +32,7 @@
             <input type="hidden" name="pwd" value="<%=pwd%>">
             <input type="hidden" name="role" value="<%=role%>">
             <input type="hidden" name="confirm" value="true">
+            <%=type%> Account
             <table border="1">
                 <tr>
                     <th>Name</th>
@@ -44,7 +45,8 @@
                     <%
                         if ("Tech".equalsIgnoreCase(role)) {
                             role = "Technician";
-                        }
+                        } else if ("STech".equalsIgnoreCase(role))
+                            role = "Senior Technician";
                     %>
                     <td><%=role%></td>
                 </tr>

@@ -184,7 +184,7 @@ public class ESDDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO senior (name, password, seniorStatus) VALUES (?,?,?)";
+            String preQueryStatement = "INSERT INTO senior (seniorname, password, seniorStatus) VALUES (?,?,?)";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, name);
             pStmnt.setString(2, pwd);
@@ -204,6 +204,33 @@ public class ESDDB {
             ex.printStackTrace();
         }
         return isSuccess;
+    }
+    
+    public int getSeniorID() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+
+        int SeniorID = 0;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM senior";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                SeniorID = rs.getInt("seniorID");
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return SeniorID;
     }
     
     public StudentBean queryStudByID(int id) {
