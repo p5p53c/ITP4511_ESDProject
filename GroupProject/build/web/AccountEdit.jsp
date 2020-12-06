@@ -18,6 +18,12 @@
             int ID = s.getStudID() != 0 ? s.getStudID():0;
             String name = s.getName() != null ? s.getName():"";
             String pwd = s.getPwd()!= null ? s.getPwd():"";
+            String back = "";
+            if ("Edit".equalsIgnoreCase(type)) {
+                back = "<input type=\"button\" value=\"Back\" onclick=\"javascript:window.history.back()\">";
+            } else if ("Create".equalsIgnoreCase(type)) {
+                back = "<input type=\"button\" value=\"Back\" onclick=\"location.href='AccountManage.jsp'\">";
+            }
         %>
         <%=type%> account
         <form method="post" action="AccountConfirm.jsp">
@@ -32,7 +38,7 @@
             Password <input name="pwd" type="password" value="<%=pwd%>" required/> <br>
             Role <input type="radio" name="role" value="Student" id="student" required <% if(Integer.toString(ID).charAt(0) == '1'){out.write("checked");} %>/><label for="student"> Student</label> | 
             <input type="radio" name="role" value="Tech" id="Tech" required <% if(Integer.toString(ID).charAt(0) == '2'){out.write("checked");} %> /> <label for="Tech">Technician</label><br>
-            <input type="submit" value="<%=type%>"/> <input type="button" value="Back" onclick="javascript:window.history.back()"><br>
+            <input type="submit" value="<%=type%>"/> <%=back%><br>
         </form>
     </body>
 </html>
