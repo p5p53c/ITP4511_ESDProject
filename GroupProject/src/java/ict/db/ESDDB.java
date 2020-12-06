@@ -1393,7 +1393,7 @@ public class ESDDB {
             ArrayList list = new ArrayList();
             while (rs.next()) {
                 ReserveRecordBean rrb = new ReserveRecordBean();
-                rrb.setEquipname("equipname");
+                rrb.setEquipname(rs.getString("equipname"));
                 rrb.setCount(rs.getInt("count"));
                 list.add(rrb);
             }
