@@ -1427,10 +1427,10 @@ public class ESDDB {
         PreparedStatement pStmnt = null;
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT equipname, COUNT(equipmentID) AS count\n" +
+            String preQueryStatement = "SELECT equipment.equipname, COUNT(borrow.equipmentID) AS count\n" +
                                         "FROM borrow, equipment\n" +
                                         "WHERE borrow.borrowstatus = 'A' AND YEAR(borrow.applicationTime)=? AND borrow.equipmentID = equipment.equipmentID\n" +
-                                        "GROUP BY equipmentID";
+                                        "GROUP BY borrow.equipmentID";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setInt(1, year);
             ResultSet rs = pStmnt.executeQuery();

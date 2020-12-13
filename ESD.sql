@@ -80,5 +80,6 @@ INSERT INTO `equipment` (`equipname`, `qty` , `availableqty`, `equipstatus`)VALU
 
 /*CREATE BORRWO*/
 INSERT INTO `borrow` VALUES (4000000, 3000000, 1000000, "A", "2020-11-27", "2020-11-27", "2020-11-27", "2020-11-27", 2000000);
+INSERT INTO borrow (equipmentID, studentID, borrowstatus, borrowTime, returnTime, techID) VALUES (3000000,1000000,'A', "2020-11-27", "2020-11-27", 2000000);
 
 
